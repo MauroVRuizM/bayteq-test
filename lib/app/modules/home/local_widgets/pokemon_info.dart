@@ -16,12 +16,12 @@ class PokemonInfo extends StatelessWidget {
     return GetBuilder<HomeController>(
       builder: (_) => Column(
         children: [
-          CachedNetworkImage(
+          Obx(() => CachedNetworkImage(
             height: 0.3 * Constants.size.height,
-            imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/50.png",
+            imageUrl: _.pokemon.value.sprites.other.officialArtwork.frontDefault,
             placeholder: (context, url) => const CircularProgressIndicator(),
             errorWidget: (context, url, error) => const FaIcon(FontAwesomeIcons.circleExclamation),
-          ),
+          )),
           Divider(
             indent: 0.05 * Constants.size.width,
             endIndent: 0.05 * Constants.size.width,
@@ -44,13 +44,15 @@ class PokemonInfo extends StatelessWidget {
                   ),
                 ],
               ),
-              LinearPercentIndicator(
+              Obx(() => _.pokemon.value.stats.isEmpty
+                ? Container()
+                : LinearPercentIndicator(
                 width: 0.5 * Constants.size.width,
                 lineHeight: 0.022 * Constants.size.height,
-                percent: 0.04,
+                percent: _.calculatePercent(0)/250,
                 progressColor: HexColor('aacc00'),
-                center: Text('10/250'),
-              )
+                center: Text('${_.calculatePercent(0)}/250'),
+              ))
             ],
           ),
           /*Ataque*/
@@ -71,13 +73,15 @@ class PokemonInfo extends StatelessWidget {
                   ),
                 ],
               ),
-              LinearPercentIndicator(
+              Obx(() => _.pokemon.value.stats.isEmpty
+                ? Container()
+                : LinearPercentIndicator(
                 width: 0.5 * Constants.size.width,
                 lineHeight: 0.022 * Constants.size.height,
-                percent: 0.04,
+                percent: _.calculatePercent(1)/250,
                 progressColor: HexColor('ee6055'),
-                center: Text('10/250'),
-              )
+                center: Text('${_.calculatePercent(1)}/250'),
+              ))
             ],
           ),
           /*Defensa*/
@@ -98,13 +102,15 @@ class PokemonInfo extends StatelessWidget {
                   ),
                 ],
               ),
-              LinearPercentIndicator(
+              Obx(() => _.pokemon.value.stats.isEmpty
+                ? Container()
+                : LinearPercentIndicator(
                 width: 0.5 * Constants.size.width,
                 lineHeight: 0.022 * Constants.size.height,
-                percent: 0.04,
+                percent: _.calculatePercent(2)/250,
                 progressColor: HexColor('3fa7d6'),
-                center: Text('10/250'),
-              )
+                center: Text('${_.calculatePercent(2)}/250'),
+              ))
             ],
           ),
           /*Velocidad*/
@@ -125,13 +131,15 @@ class PokemonInfo extends StatelessWidget {
                   ),
                 ],
               ),
-              LinearPercentIndicator(
+              Obx(() => _.pokemon.value.stats.isEmpty
+                ? Container()
+                : LinearPercentIndicator(
                 width: 0.5 * Constants.size.width,
                 lineHeight: 0.022 * Constants.size.height,
-                percent: 0.04,
+                percent: _.calculatePercent(5)/250,
                 progressColor: HexColor('ffc857'),
-                center: Text('10/250'),
-              )
+                center: Text('${_.calculatePercent(5)}/250'),
+              ))
             ],
           ),
         ],
